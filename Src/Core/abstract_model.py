@@ -4,6 +4,7 @@ from Src.Core.validator import validator
 
 class abstact_model(ABC):
     __unique_code:str
+    __name: str = ""
 
     def __init__(self) -> None:
         super().__init__()
@@ -21,6 +22,18 @@ class abstact_model(ABC):
         validator.validate(value, str)
         self.__unique_code = value.strip()
     
+    """
+    Обычное наименование. Ограничение на поле - не длинее 50 символов
+    """
+    @property
+    def name(self) -> str:
+        return self.__name
+
+    @name.setter
+    def name(self, value: str):
+        validator.validate(value, str, 50)
+        self.__name = value.strip()
+
 
     """
     Перегрузка штатного варианта сравнения
