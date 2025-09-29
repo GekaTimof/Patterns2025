@@ -4,7 +4,7 @@ from Src.Core.abstract_model import abstact_model
 ###############################################
 # Модель организации
 class company_model(abstact_model):
-    __name:str = ""
+    # __name:str = ""
     __inn:int = 0
     __bic:int = 0
     __corr_account:int = 0
@@ -18,15 +18,15 @@ class company_model(abstact_model):
     # Наименование
     # Вид собственности 5 симв
 
-    # Наименование
-    @property
-    def name(self) -> str:
-        return self.__name
-
-    @name.setter
-    def name(self, value:str):
-        validator.validate(value, str)
-        self.__name = value.strip()
+    # # Наименование
+    # @property
+    # def name(self) -> str:
+    #     return self.__name
+    #
+    # @name.setter
+    # def name(self, value:str):
+    #     validator.validate(value, str)
+    #     self.__name = value.strip()
 
     # ИНН
     @property
