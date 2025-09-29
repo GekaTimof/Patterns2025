@@ -16,4 +16,3 @@ class settings_model:
         validator.validate(value, company_model)
         self.__company = value
 
-

@@ -76,8 +76,5 @@ class company_model(abstact_model):
         validator.validate(value, str, 5)
         self.__ownership = value.strip()
 
- 
-
-       
 
 
