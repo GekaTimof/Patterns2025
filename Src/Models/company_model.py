@@ -4,29 +4,20 @@ from Src.Core.abstract_model import abstact_model
 ###############################################
 # Модель организации
 class company_model(abstact_model):
-    # __name:str = ""
     __inn:int = 0
     __bic:int = 0
     __corr_account:int = 0
-    __account:int = 0
-    __ownership:str = ""
 
+    __account: int = 0
+    __ownership: str = ""
+
+    # Наименование (наследованно)
     # ИНН : 12 симв
-    # Счет 11 симв
-    # Корреспондентский счет 11 симв
     # БИК 9 симв
-    # Наименование
+    # Корреспондентский счет 11 симв
+    # Счет (аккаунт) 11 симв
     # Вид собственности 5 симв
 
-    # # Наименование
-    # @property
-    # def name(self) -> str:
-    #     return self.__name
-    #
-    # @name.setter
-    # def name(self, value:str):
-    #     validator.validate(value, str)
-    #     self.__name = value.strip()
 
     # ИНН
     @property
@@ -38,7 +29,7 @@ class company_model(abstact_model):
         validator.validate(value, int, 12)
         self.__inn = value
 
-    # КПП
+    # БИК
     @property
     def bic(self) -> int:
         return self.__bic
@@ -58,6 +49,7 @@ class company_model(abstact_model):
         validator.validate(value, int, 11)
         self.__corr_account = value
 
+    # Аккаунт
     @property
     def account(self) -> int:
         return self.__account
@@ -67,6 +59,7 @@ class company_model(abstact_model):
         validator.validate(value, int, 11)
         self.__account = value
 
+    # Вид собственности
     @property
     def ownership(self) -> str:
         return self.__ownership

@@ -31,7 +31,7 @@ class abstact_model(ABC):
 
     @name.setter
     def name(self, value: str):
-        validator.validate(value, str, len_=50)
+        validator.validate(value, str, 50)
         self.__name = value.strip()
 
 
