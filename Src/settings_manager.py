@@ -45,11 +45,6 @@ class settings_manager:
         else:
             raise argument_exception(f'Не найден файл настроек {full_file_name}')
 
-    # Загрузка настроек из Json файла по ссылке
-    def open(self, path: str) -> bool:
-        validator.validate(path, str)
-        self.__full_file_name = path
-        return self.load()
 
     # Загрузить настройки из Json файла
     def load(self) -> bool:
