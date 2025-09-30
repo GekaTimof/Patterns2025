@@ -7,7 +7,6 @@ class company_model(abstact_model):
     __inn:int = 0
     __bic:int = 0
     __corr_account:int = 0
-
     __account: int = 0
     __ownership: str = ""
 
@@ -17,6 +16,16 @@ class company_model(abstact_model):
     # Корреспондентский счет 11 симв
     # Счет (аккаунт) 11 симв
     # Вид собственности 5 симв
+
+    def __init__(self, settings = None):
+        super().__init__()
+        if settings is not None:
+            self.name = settings.company.name
+            self.inn = settings.company.inn
+            self.bic = settings.company.bic
+            self.corr_account = settings.company.corr_account
+            self.account = settings.company.account
+            self.ownership = settings.company.ownership
 
 
     # ИНН
@@ -68,6 +77,4 @@ class company_model(abstact_model):
     def ownership(self, value:str):
         validator.validate(value, str, 5)
         self.__ownership = value.strip()
-
-
 
