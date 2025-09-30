@@ -1,9 +1,17 @@
 from Src.Core.validator import validator
 from Src.Core.abstract_model import abstact_model
 
+###############################################
+# Модель единицы измерения для товаров/материалов
+# Хранит коэффициент преобразования и базовую единицу
+# Поддерживает конвертацию между разными единицами измерения
+###############################################
 class measurement_model(abstact_model):
-    __coefficient: (float, int)
+    # Базовые еденицы измерения
     __base_unit: 'measurement_model'
+    # Коэффициент соотношения текущей еденицы измерения к базовым еденицам измерения
+    __coefficient: (float, int)
+
 
     def __init__(self, name: str, coefficient: (float, int) = 1, base_unit: 'measurement_model' = None):
         super().__init__()

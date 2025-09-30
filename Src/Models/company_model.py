@@ -2,20 +2,21 @@ from Src.Core.validator import validator
 from Src.Core.abstract_model import abstact_model
 
 ###############################################
-# Модель организации
+# Модель организации с банковскими реквизитами
+# Хранит основные данные юр.лица: ИНН, БИК, счета, форму собственности
+# Валидация по длине соответствует требованиям РФ
+###############################################
 class company_model(abstact_model):
-    __inn:int = 0
-    __bic:int = 0
-    __corr_account:int = 0
-    __account: int = 0
-    __ownership: str = ""
-
-    # Наименование (наследованно)
     # ИНН : 12 симв
+    __inn:int = 0
     # БИК 9 симв
+    __bic:int = 0
     # Корреспондентский счет 11 симв
+    __corr_account:int = 0
     # Счет (аккаунт) 11 симв
+    __account: int = 0
     # Вид собственности 5 симв
+    __ownership: str = ""
 
     def __init__(self, settings = None):
         super().__init__()

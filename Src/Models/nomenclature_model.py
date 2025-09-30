@@ -4,10 +4,16 @@ from Src.Models.nomenclature_group_model import nomenclature_group_model
 from Src.Models.measurement_model import measurement_model
 
 ###############################################
-# Модель номенклатуры
+# Модель номенклатуры - товар/материал в системе
+# Содержит полное описание, группу и единицы измерения
+# Используется для учета товарных позиций на складах
+###############################################
 class nomenclature_model(abstact_model):
+    # Полное название номенклатуры
     __full_name: str = ""
+    # К какой группе номенклатур относиться
     __nomenclature_group: nomenclature_group_model
+    # Какая еденица измерения
     __measurement: measurement_model
 
     """
