@@ -17,9 +17,6 @@ class abstact_model(ABC):
         super().__init__()
         self.__unique_code = uuid.uuid4().hex
 
-    """
-    Уникальный код
-    """
     @property
     def unique_code(self) -> str:
         return self.__unique_code
@@ -28,10 +25,7 @@ class abstact_model(ABC):
     def unique_code(self, value: str):
         validator.validate(value, str)
         self.__unique_code = value.strip()
-    
-    """
-    Обычное наименование. Ограничение на поле - не длинее 50 символов
-    """
+
     @property
     def name(self) -> str:
         return self.__name
@@ -41,9 +35,5 @@ class abstact_model(ABC):
         validator.validate(value, str, 50)
         self.__name = value.strip()
 
-
-    """
-    Перегрузка штатного варианта сравнения
-    """
     def __eq__(self, value: str) -> bool:
         return self.__unique_code == value
