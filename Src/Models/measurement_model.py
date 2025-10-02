@@ -12,8 +12,7 @@ class measurement_model(abstact_model):
     # Коэффициент соотношения текущей еденицы измерения к базовым еденицам измерения
     __coefficient: (float, int)
 
-
-    def __init__(self, name: str, coefficient: (float, int) = 1, base_unit: 'measurement_model' = None):
+    def __init__(self, name: str, base_unit: 'measurement_model' = None, coefficient: (float, int) = 1):
         super().__init__()
         self.name = name
         self.coefficient = coefficient
@@ -37,3 +36,28 @@ class measurement_model(abstact_model):
         validator.validate(value, measurement_model)
         self.__base_unit = value
 
+
+    # универсальный метод (фабричный), для создания едениц измерения
+    @staticmethod
+    def create(name: str, base_unit: 'measurement_model' = None, coefficient: (float, int) = 1) -> 'measurement_model':
+        validator.validate(name, str)
+        item = measurement_model(name)
+        if base_unit is not None:
+            validator.validate(base_unit, measurement_model)
+            item.base_unit = base_unit
+        validator.validate(coefficient, (float, int), min_lim_=0)
+
+        return item
+
+
+    # метод для создания граммов
+    @staticmethod
+    def create_gram() -> 'measurement_model':
+        return measurement_model.create("gram")
+
+
+    # метод для создания килограмма
+    @staticmethod
+    def create_kilogram():
+        base_unit = measurement_model.create_gram()
+        return measurement_model.create("kilogram", base_unit, 1000)
