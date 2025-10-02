@@ -3,7 +3,11 @@ from Src.Core.validator import validator
 
 ######################################
 # Модель настроек приложения
+# Хранит конфигурацию системы, основная настройка - организация
+# Обеспечивает валидацию данных при установке значений
+######################################
 class settings_model:
+    # Конфигураия настроек организации
     __company: company_model = None
 
     # Текущая организация
@@ -15,5 +19,3 @@ class settings_model:
     def company(self, value: company_model):
         validator.validate(value, company_model)
         self.__company = value
-
-

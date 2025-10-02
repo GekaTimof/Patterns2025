@@ -2,31 +2,32 @@ from Src.Core.validator import validator
 from Src.Core.abstract_model import abstact_model
 
 ###############################################
-# Модель организации
+# Модель организации с банковскими реквизитами
+# Хранит основные данные юр.лица: ИНН, БИК, счета, форму собственности
+# Валидация по длине соответствует требованиям РФ
+###############################################
 class company_model(abstact_model):
-    __name:str = ""
-    __inn:int = 0
-    __bic:int = 0
-    __corr_account:int = 0
-    __account:int = 0
-    __ownership:str = ""
-
     # ИНН : 12 симв
-    # Счет 11 симв
-    # Корреспондентский счет 11 симв
+    __inn:int = 0
     # БИК 9 симв
-    # Наименование
+    __bic:int = 0
+    # Корреспондентский счет 11 симв
+    __corr_account:int = 0
+    # Счет (аккаунт) 11 симв
+    __account: int = 0
     # Вид собственности 5 симв
+    __ownership: str = ""
 
-    # Наименование
-    @property
-    def name(self) -> str:
-        return self.__name
+    def __init__(self, settings = None):
+        super().__init__()
+        if settings is not None:
+            self.name = settings.company.name
+            self.inn = settings.company.inn
+            self.bic = settings.company.bic
+            self.corr_account = settings.company.corr_account
+            self.account = settings.company.account
+            self.ownership = settings.company.ownership
 
-    @name.setter
-    def name(self, value:str):
-        validator.validate(value, str)
-        self.__name = value.strip()
 
     # ИНН
     @property
@@ -38,7 +39,7 @@ class company_model(abstact_model):
         validator.validate(value, int, 12)
         self.__inn = value
 
-    # КПП
+    # БИК
     @property
     def bic(self) -> int:
         return self.__bic
@@ -58,6 +59,7 @@ class company_model(abstact_model):
         validator.validate(value, int, 11)
         self.__corr_account = value
 
+    # Аккаунт
     @property
     def account(self) -> int:
         return self.__account
@@ -67,6 +69,7 @@ class company_model(abstact_model):
         validator.validate(value, int, 11)
         self.__account = value
 
+    # Вид собственности
     @property
     def ownership(self) -> str:
         return self.__ownership
@@ -75,9 +78,4 @@ class company_model(abstact_model):
     def ownership(self, value:str):
         validator.validate(value, str, 5)
         self.__ownership = value.strip()
-
- 
-
-       
-
 

@@ -6,13 +6,14 @@ from Src.Models.company_model import company_model
 import os
 import json
 
-####################################################3
-# Менеджер настроек. 
-# Предназначен для управления настройками и хранения параметров приложения
+####################################################
+# Менеджер настроек приложения
+# Singleton для работы с конфигурацией системы
+# Загружает настройки из JSON, устанавливает значения по умолчанию
+####################################################
 class settings_manager:
     # Наименование файла (полный путь)
     __full_file_name:str = ""
-
     # Настройки
     __settings:settings_model = None
 
@@ -44,6 +45,7 @@ class settings_manager:
             self.__full_file_name = full_file_name.strip()
         else:
             raise argument_exception(f'Не найден файл настроек {full_file_name}')
+
 
     # Загрузить настройки из Json файла
     def load(self) -> bool:
@@ -83,9 +85,8 @@ class settings_manager:
         company = company_model()
         company.name = "Рога и копыта"
         company.inn = -1
+        company.ownership = "empty"
         
         self.__settings = settings_model()
         self.__settings.company = company
-
-
 
