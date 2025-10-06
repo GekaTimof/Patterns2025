@@ -5,7 +5,7 @@ class start_service:
     __repo: reposity = reposity()
 
     def __init__(self):
-        self.__repo.data[ reposity.measurement_key ] = []
+        self.__repo.data[reposity.measurement_key] = []
 
     # Singletone
     def __new__(cls):
@@ -13,9 +13,9 @@ class start_service:
             cls.instance = super(start_service, cls).__new__(cls)
         return cls.instance
 
-    def __default_create_ranges(self):
-        self.__repo.data[reposity.measurement_key ].append(measurement_model.create_gram())
-        self.__repo.data[reposity.measurement_key ].append(measurement_model.create_kilogram())
+    def __default_create_measurements(self):
+        self.__repo.data[reposity.measurement_key].append(measurement_model.create_gram())
+        self.__repo.data[reposity.measurement_key].append(measurement_model.create_kilogram())
 
     # Стартовый набор данных
     def data(self):
@@ -23,6 +23,6 @@ class start_service:
 
     # Основной метод для генерации эталонных данных
     def start(self):
-        self.__default_create_ranges()
+        self.__default_create_measurements()
 
 
