@@ -11,12 +11,23 @@ class measurement_model(abstact_model):
     __base_unit: 'measurement_model'
     # Коэффициент соотношения текущей еденицы измерения к базовым еденицам измерения
     __coefficient: (float, int)
+    # Словарь для хранения существующих экземпляров
+    __instances: dict = {}
 
     def __init__(self, name: str, base_unit: 'measurement_model' = None, coefficient: (float, int) = 1):
+        # Если экземпляр с таким именем уже существует, возвращаем его
+        if name in measurement_model.__instances:
+            exist_instance = measurement_model.__instances[name]
+            self.__dict__ = exist_instance.__dict__
+            return
+
         super().__init__()
         self.name = name
         self.coefficient = coefficient
         self.base_unit = base_unit if base_unit is not None else self
+
+        # Сохраняем новый экземпляр
+        measurement_model.__instances[name] = self
 
     @property
     def coefficient(self) -> (float, int):
