@@ -132,9 +132,3 @@ class start_service:
             (nomenclatures["Лёд"], 200),
         ]
         self.create_recipe(name2, data2)
-
-
-service = start_service()
-service.start()
-service.create()
-print("end")
