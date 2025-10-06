@@ -5,6 +5,13 @@ from Src.Models.nomenclature_model import nomenclature_model
 from Src.Models.recipe_model import recipe_model
 from Src.reposity import reposity
 
+######################################
+# Класс для запучка сервися
+# Назначение:
+# - Создание эталонных данных (единицы измерения, группы, номенклатуры)
+# - Генерация тестовых рецептов
+# - Реализация паттерна Singleton
+###############################################
 class start_service:
     __repo: reposity = reposity()
 
