@@ -1,10 +1,9 @@
 import unittest
-
 from Src.reposity import reposity
 from Src.start_service import start_service
 
 
-# класс для проверки запуска (переиспользование )
+# Пласс для проверки запуска (переиспользование )
 class test_start(unittest.TestCase):
     __start_service: start_service = start_service()
 
@@ -12,10 +11,22 @@ class test_start(unittest.TestCase):
         super().__init__(methodName)
         self.__start_service.start()
 
+    # Проверка, что при старте сервиса создаются начальные еденицы измерения
     def test_start_service_rangeNotEmpty(self):
         # Подготовка
 
         # Действе
 
         # Проверка
-        assert self.__len(start_service.data[ reposity.measurement_key()]) > 0
+        assert len(self.__start_service.data()) > 0
+
+    # Проверка, что единицы измерения с одинаковым названием это одни и те же еденица измерения
+    def test_start_measurement_relationships(self):
+        # Подготовка
+
+        # Действе
+
+        # Проверка
+        assert self.__start_service.data()[reposity.measurement_key][1].base_unit == self.__start_service.data()[reposity.measurement_key][0]
+
+
