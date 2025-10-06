@@ -12,3 +12,12 @@ class reposity:
     def measurement_key():
         return 'measurement model'
 
+    # ключ для групп номенклатур
+    @staticmethod
+    def nomenclature_group_key():
+        return 'nomenclature group'
+
+    # ключ для номенклатур
+    @staticmethod
+    def nomenclature_key():
+        return 'nomenclature'
