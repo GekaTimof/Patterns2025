@@ -25,8 +25,8 @@ class test_start(unittest.TestCase):
     # Проверка, что единицы измерения с одинаковым названием это одни и те же еденица измерения
     def test_measurement_relationships(self):
         # Подготовка
-        kilogram = self.__start_service.data()[reposity.measurement_key]['kg']
-        gram = self.__start_service.data()[reposity.measurement_key]['gr']
+        kilogram = self.__start_service.data()[reposity.measurement_key]['кг']
+        gram = self.__start_service.data()[reposity.measurement_key]['гр']
 
         # Действе
 
@@ -42,16 +42,16 @@ class test_start(unittest.TestCase):
         # Действие
 
         # Проверка
-        assert 'gr' in measurements
-        assert 'kg' in measurements
-        assert measurements['gr'].name == "gram"
-        assert measurements['kg'].name == "kilogram"
+        assert 'гр' in measurements
+        assert 'кг' in measurements
+        assert measurements['гр'].name == "gram"
+        assert measurements['кг'].name == "kilogram"
 
 
     # Проверка установки коэффициента преобразования
     def test_measurement_coefficient(self):
         # Подготовка
-        kilogram = self.__start_service.data()[reposity.measurement_key]['kg']
+        kilogram = self.__start_service.data()[reposity.measurement_key]['кг']
 
         # Действие
 
@@ -88,7 +88,7 @@ class test_start(unittest.TestCase):
     def test_nomenclature_creation(self):
         # Подготовка
         nomenclatures = self.__start_service.data()[reposity.nomenclature_key]
-        measurement = self.__start_service.data()[reposity.measurement_key]['kg']
+        measurement = self.__start_service.data()[reposity.measurement_key]['кг']
 
         # Действие
 
