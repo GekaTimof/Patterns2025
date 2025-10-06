@@ -34,3 +34,11 @@ class recipe_model(abstact_model):
     def remove_ingredient(self, ingredient: ingredient_model):
         if ingredient in self.__ingredients:
             self.__ingredients.remove(ingredient)
+
+    # Фабричный метод для формирования рецепта с названием из массива ингридиентов
+    @staticmethod
+    def create_recipe(self, name: str, ingredients) -> 'recipe_model':
+        item = recipe_model(name)
+        for ingredient in ingredients:
+            item.add_ingredient(ingredient)
+        return item
