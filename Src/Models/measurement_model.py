@@ -57,6 +57,7 @@ class measurement_model(abstact_model):
             validator.validate(base_unit, measurement_model)
             item.base_unit = base_unit
         validator.validate(coefficient, (float, int), min_lim_=0)
+        item.coefficient = coefficient
 
         return item
 
@@ -66,9 +67,19 @@ class measurement_model(abstact_model):
     def create_gram() -> 'measurement_model':
         return measurement_model.create("gram")
 
-
     # метод для создания килограмма
     @staticmethod
     def create_kilogram():
         base_unit = measurement_model.create_gram()
         return measurement_model.create("kilogram", base_unit, 1000)
+
+    # метод для создания граммов
+    @staticmethod
+    def create_liter() -> 'measurement_model':
+        return measurement_model.create("liter")
+
+    # метод для создания килограмма
+    @staticmethod
+    def create_milliliter():
+        base_unit = measurement_model.create_liter()
+        return measurement_model.create("milliliter", base_unit, 0.001)
