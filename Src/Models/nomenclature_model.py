@@ -19,7 +19,7 @@ class nomenclature_model(abstact_model):
     def __init__(self, full_name: str =None,
                  nomenclature_group: nomenclature_group_model = None, measurement: measurement_model = None):
         super().__init__()
-        if full_name is not None: self.name = full_name
+        if full_name is not None: self.full_name = full_name
         if nomenclature_group is not None: self.nomenclature_group = nomenclature_group
         if measurement is not None: self.measurement = measurement
 
