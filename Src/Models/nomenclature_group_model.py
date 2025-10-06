@@ -10,6 +10,11 @@ class nomenclature_group_model(abstact_model):
     # Текстоваое описание группы номенклатуры
     __description: str = ""
 
+    def __init__(self, name: str =None, description: str = None):
+        super().__init__()
+        if name is not None: self.name = name
+        if description is not None: self.description = description
+
     """
     Полное описание группы 
     """
