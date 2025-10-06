@@ -7,7 +7,7 @@ from Src.Models.Ingredient_model import ingredient_model
 # Хранит массив всех ингридиентов. Каждый ингридиент храниет
 # (название ингредиента, количество, еденицы измерения)
 ###############################################
-class recie_model(abstact_model):
+class recipe_model(abstact_model):
     def __init__(self, name: str = None):
         super().__init__()
         if name is not None: self.name = name
