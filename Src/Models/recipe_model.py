@@ -37,7 +37,7 @@ class recipe_model(abstact_model):
 
     # Фабричный метод для формирования рецепта с названием из массива ингридиентов
     @staticmethod
-    def create_recipe(self, name: str, ingredients) -> 'recipe_model':
+    def create_recipe(name: str, ingredients: list) -> 'recipe_model':
         item = recipe_model(name)
         for ingredient in ingredients:
             item.add_ingredient(ingredient)

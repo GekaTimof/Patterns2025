@@ -21,3 +21,8 @@ class reposity:
     @staticmethod
     def nomenclature_key():
         return 'nomenclature'
+
+    # ключ для рецептов
+    @staticmethod
+    def recipes_key():
+        return 'recipes'
