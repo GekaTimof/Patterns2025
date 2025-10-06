@@ -13,7 +13,7 @@ class nomenclature_model(abstact_model):
     __full_name: str = ""
     # К какой группе номенклатур относиться
     __nomenclature_group: nomenclature_group_model
-    # Какая еденица измерения
+    # Какая едница измерения
     __measurement: measurement_model
 
     def __init__(self, full_name: str =None,
