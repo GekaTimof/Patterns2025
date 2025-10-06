@@ -1,39 +1,38 @@
 from Src.Core.validator import validator
 from Src.Core.abstract_model import abstact_model
-from Src.Models.measurement_model import measurement_model
+from Src.Models.nomenclature_model import nomenclature_model
 
 ###############################################
 # Модель для хранения ингридиентов
 # Хранит информацию о ингридиенте
-# (название, количество, еденицы измерения)
+# (номенклатура, количество)
 ###############################################
 class ingredient_model(abstact_model):
-    # Базовые еденицы измерения
-    __base_unit: measurement_model
+    # Номенклатура ингредиента
+    __nomenclature: nomenclature_model
     # Количество (в базовых еденицах измерения)
     __amount: float
 
-    def __init__(self, name: str = None,
-                 base_unit: measurement_model = None, amount: float = None):
+    def __init__(self, nomenclature: nomenclature_model = None, amount: (float, int) = None):
         super().__init__()
-        if name is not None: self.name = name
-        if base_unit is not None: self.base_unit = base_unit
+        if nomenclature is not None: self.nomenclature = nomenclature
+        # if base_unit is not None: self.base_unit = base_unit
         if amount is not None: self.amount = amount
 
     @property
-    def __base_unit(self) -> measurement_model:
-        return self.__base_unit
+    def nomenclature(self) -> nomenclature_model:
+        return self.__nomenclature
 
-    @__base_unit.setter
-    def __base_unit(self, value: measurement_model):
-        validator.validate(value, measurement_model)
-        self.__base_unit = value
+    @nomenclature.setter
+    def nomenclature(self, value: nomenclature_model):
+        validator.validate(value, nomenclature_model)
+        self.__nomenclature = value
 
     @property
     def amount(self) -> float:
         return self.__amount
 
     @amount.setter
-    def amount(self, value: str):
-        validator.validate(value, float, min_lim_=0)
-        self.amount = value
+    def amount(self, value: (float, int)):
+        validator.validate(value, (float, int), min_lim_=0)
+        self.__amount = float(value)
