@@ -15,24 +15,24 @@ class nomenclature_model(abstact_model):
     __nomenclature_group: nomenclature_group_model
     # Какая едница измерения
     __measurement: measurement_model
-    # Словарь для хранения существующих экземпляров
-    __instances: dict = {}
+    # # Словарь для хранения существующих экземпляров
+    # __instances: dict = {}
 
     def __init__(self, full_name: str =None,
                  nomenclature_group: nomenclature_group_model = None, measurement: measurement_model = None):
-        # Если экземпляр с таким именем уже существует, возвращаем его
-        if full_name in nomenclature_model.__instances:
-            exist_instance = nomenclature_model.__instances[full_name]
-            self.__dict__ = exist_instance.__dict__
-            return
+        # # Если экземпляр с таким именем уже существует, возвращаем его
+        # if full_name in nomenclature_model.__instances:
+        #     exist_instance = nomenclature_model.__instances[full_name]
+        #     self.__dict__ = exist_instance.__dict__
+        #     return
 
         super().__init__()
         if full_name is not None: self.full_name = full_name
         if nomenclature_group is not None: self.nomenclature_group = nomenclature_group
         if measurement is not None: self.measurement = measurement
 
-        # Сохраняем новый экземпляр
-        nomenclature_model.__instances[full_name] = self
+        # # Сохраняем новый экземпляр
+        # nomenclature_model.__instances[full_name] = self
 
     """
     Полное наименование. Ограничение на поле - не длинее 255 символов

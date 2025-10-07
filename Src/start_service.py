@@ -34,9 +34,11 @@ class start_service:
     def __default_create_measurements(self):
         # gr - грамм, kg - килограмм, ml - миллилитр, l - литр
         self.__repo.data[reposity.measurement_key]['гр'] = measurement_model.create_gram()
-        self.__repo.data[reposity.measurement_key]['кг'] = measurement_model.create_kilogram()
+        self.__repo.data[reposity.measurement_key]['кг'] = measurement_model.create_kilogram(
+            self.__repo.data[reposity.measurement_key]['гр'])
         self.__repo.data[reposity.measurement_key]['л'] = measurement_model.create_liter()
-        self.__repo.data[reposity.measurement_key]['мл'] = measurement_model.create_milliliter()
+        self.__repo.data[reposity.measurement_key]['мл'] = measurement_model.create_milliliter(
+            self.__repo.data[reposity.measurement_key]['л'])
 
 
     # Функция которая задаёт базовые группы номенклатур
@@ -114,7 +116,6 @@ class start_service:
     # Метод создающиё рецепты на основе эталонных данных
     def create(self):
         nomenclatures = self.__repo.data[reposity.nomenclature_key]
-        measurements = self.__repo.data[reposity.measurement_key]
 
         # создаём первый рецепт (Тущёное мясо с овощами)
         name1 = "Тущёное мясо с овощами"

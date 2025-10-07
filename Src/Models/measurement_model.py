@@ -11,23 +11,23 @@ class measurement_model(abstact_model):
     __base_unit: 'measurement_model'
     # Коэффициент соотношения текущей еденицы измерения к базовым еденицам измерения
     __coefficient: (float, int)
-    # Словарь для хранения существующих экземпляров
-    __instances: dict = {}
+    # # Словарь для хранения существующих экземпляров
+    # __instances: dict = {}
 
     def __init__(self, name: str, base_unit: 'measurement_model' = None, coefficient: (float, int) = 1):
-        # Если экземпляр с таким именем уже существует, возвращаем его
-        if name in measurement_model.__instances:
-            exist_instance = measurement_model.__instances[name]
-            self.__dict__ = exist_instance.__dict__
-            return
+        # # Если экземпляр с таким именем уже существует, возвращаем его
+        # if name in measurement_model.__instances:
+        #     exist_instance = measurement_model.__instances[name]
+        #     self.__dict__ = exist_instance.__dict__
+        #     return
 
         super().__init__()
         self.name = name
         self.coefficient = coefficient
         self.base_unit = base_unit if base_unit is not None else self
 
-        # Сохраняем новый экземпляр
-        measurement_model.__instances[name] = self
+        # # Сохраняем новый экземпляр
+        # measurement_model.__instances[name] = self
 
     @property
     def coefficient(self) -> (float, int):
@@ -69,9 +69,9 @@ class measurement_model(abstact_model):
 
     # метод для создания килограмма
     @staticmethod
-    def create_kilogram():
-        base_unit = measurement_model.create_gram()
-        return measurement_model.create("kilogram", base_unit, 1000)
+    def create_kilogram(gram: 'measurement_model'):
+        # base_unit = measurement_model.create_gram()
+        return measurement_model.create("kilogram", gram, 1000)
 
     # метод для создания граммов
     @staticmethod
@@ -80,6 +80,6 @@ class measurement_model(abstact_model):
 
     # метод для создания килограмма
     @staticmethod
-    def create_milliliter():
-        base_unit = measurement_model.create_liter()
-        return measurement_model.create("milliliter", base_unit, 0.001)
+    def create_milliliter(liter: 'measurement_model'):
+        # base_unit = measurement_model.create_liter()
+        return measurement_model.create("milliliter", liter, 0.001)

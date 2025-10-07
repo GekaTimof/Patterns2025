@@ -30,10 +30,10 @@ class recipe_model(abstact_model):
         validator.validate(ingredient, ingredient_model)
         self.__ingredients.append(ingredient)
 
-    # Метод для удаления ингредиента
-    def remove_ingredient(self, ingredient: ingredient_model):
-        if ingredient in self.__ingredients:
-            self.__ingredients.remove(ingredient)
+    # # Метод для удаления ингредиента
+    # def remove_ingredient(self, ingredient: ingredient_model):
+    #     if ingredient in self.__ingredients:
+    #         self.__ingredients.remove(ingredient)
 
     # Фабричный метод для формирования рецепта с названием из массива ингридиентов
     @staticmethod
