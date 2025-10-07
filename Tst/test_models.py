@@ -119,7 +119,7 @@ class test_models(unittest.TestCase):
     def test_notEmpty_create_measurement_model(self):
         # Подготовка
         base_measurement = measurement_model("г")
-        additional_measurement = measurement_model("кг", 1000, base_measurement)
+        additional_measurement = measurement_model("кг", base_measurement, 1000)
 
         # Действие GUID
 

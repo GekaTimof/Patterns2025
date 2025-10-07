@@ -11,13 +11,23 @@ class measurement_model(abstact_model):
     __base_unit: 'measurement_model'
     # Коэффициент соотношения текущей еденицы измерения к базовым еденицам измерения
     __coefficient: (float, int)
+    # # Словарь для хранения существующих экземпляров
+    # __instances: dict = {}
 
+    def __init__(self, name: str, base_unit: 'measurement_model' = None, coefficient: (float, int) = 1):
+        # # Если экземпляр с таким именем уже существует, возвращаем его
+        # if name in measurement_model.__instances:
+        #     exist_instance = measurement_model.__instances[name]
+        #     self.__dict__ = exist_instance.__dict__
+        #     return
 
-    def __init__(self, name: str, coefficient: (float, int) = 1, base_unit: 'measurement_model' = None):
         super().__init__()
         self.name = name
         self.coefficient = coefficient
         self.base_unit = base_unit if base_unit is not None else self
+
+        # # Сохраняем новый экземпляр
+        # measurement_model.__instances[name] = self
 
     @property
     def coefficient(self) -> (float, int):
@@ -37,3 +47,39 @@ class measurement_model(abstact_model):
         validator.validate(value, measurement_model)
         self.__base_unit = value
 
+
+    # универсальный метод (фабричный), для создания едениц измерения
+    @staticmethod
+    def create(name: str, base_unit: 'measurement_model' = None, coefficient: (float, int) = 1) -> 'measurement_model':
+        validator.validate(name, str)
+        item = measurement_model(name)
+        if base_unit is not None:
+            validator.validate(base_unit, measurement_model)
+            item.base_unit = base_unit
+        validator.validate(coefficient, (float, int), min_lim_=0)
+        item.coefficient = coefficient
+
+        return item
+
+
+    # метод для создания граммов
+    @staticmethod
+    def create_gram() -> 'measurement_model':
+        return measurement_model.create("gram")
+
+    # метод для создания килограмма
+    @staticmethod
+    def create_kilogram(gram: 'measurement_model'):
+        # base_unit = measurement_model.create_gram()
+        return measurement_model.create("kilogram", gram, 1000)
+
+    # метод для создания граммов
+    @staticmethod
+    def create_liter() -> 'measurement_model':
+        return measurement_model.create("liter")
+
+    # метод для создания килограмма
+    @staticmethod
+    def create_milliliter(liter: 'measurement_model'):
+        # base_unit = measurement_model.create_liter()
+        return measurement_model.create("milliliter", liter, 0.001)
