@@ -121,43 +121,110 @@ class start_service:
         return True        
 
 
-    # TODO: Внимание! Тут нужно проверки добавить и обработку исключений чтобы возвращать False
+    # TODO: Внимание! Тут нужно проверки добавить и обработку исключений чтобы возвращать False (сделано)
 
     # Обработать полученный словарь    
     def convert(self, data: dict) -> bool:
-        validator.validate(data, dict)
+        try:
+            validator.validate(data, dict)
 
-        # 1 Созданим рецепт
-        cooking_time = data['cooking_time'] if 'cooking_time' in data else ""
-        portions = int(data['portions']) if 'portions' in data else 0
-        name =  data['name'] if 'name' in data else "НЕ ИЗВЕСТНО"
-        self.__default_receipt = receipt_model.create(name, cooking_time, portions  )
+            # Проверка наличия обязательных данных (data не пуст)
+            if not data:
+                return False
 
-        # Загрузим шаги приготовления
-        steps =  data['steps'] if 'steps' in data else []
-        for step in steps:
-            if step.strip() != "":
-                self.__default_receipt.steps.append( step )
+            # 1 Созданим рецепт
+            cooking_time = data['cooking_time'] if 'cooking_time' in data else ""
+            portions_str = data['portions'] if 'portions' in data else 0
+            name =  data['name'] if 'name' in data else "НЕ ИЗВЕСТНО"
 
-        self.__convert_ranges(data)
-        self.__convert_groups(data)
-        self.__convert_nomenclatures(data)        
+            # Проверка значения portions_str есть и его можно перевести в число
+            portions: int
+            try:
+                portions = int(portions_str) if portions_str else 0
+            except (ValueError, TypeError):
+                portions = 0
 
+            # проверка наличия данных рецепта
+            if not name or name.strip() == "":
+                return False
 
-        # Собираем рецепт
-        compositions =  data['composition'] if 'composition' in data else []      
-        for composition in compositions:
-            namnomenclature_id = composition['nomenclature_id'] if 'nomenclature_id' in composition else ""
-            range_id = composition['range_id'] if 'range_id' in composition else ""
-            value  = composition['value'] if 'value' in composition else ""
-            nomenclature = self.__default_receipt_items[namnomenclature_id] if namnomenclature_id in self.__default_receipt_items else None
-            range = self.__default_receipt_items[range_id] if range_id in self.__default_receipt_items else None
-            item = receipt_item_model.create(  nomenclature, range, value)
-            self.__default_receipt.composition.append(item)
-            
-        # Сохраняем рецепт
-        self.__repo.data[ reposity.receipt_key() ].append(self.__default_receipt)
-        return True
+            self.__default_receipt = receipt_model.create(name, cooking_time, portions)
+
+            # Загрузим шаги приготовления
+            # steps =  data['steps'] if 'steps' in data else []
+            steps = data.get('steps', [])
+            if not isinstance(steps, list):
+                steps = []
+
+            for step in steps:
+                if step and isinstance(steps, str) and step.strip() != "":
+                    self.__default_receipt.steps.append(step)
+
+            # Загрузка данных с проверкой результатов
+            if not self.__convert_ranges(data):
+                return False
+
+            if not self.__convert_groups(data):
+                return False
+
+            if not self.__convert_nomenclatures(data):
+                return False
+
+            # Собираем рецепт
+            # compositions =  data['composition'] if 'composition' in data else []
+            compositions = data.get('composition', [])
+            if not isinstance(compositions, list):
+                compositions = []
+
+            for composition in compositions:
+                if not isinstance(composition, dict):
+                    continue
+
+                nomenclature_id = composition.get('nomenclature_id', "")
+                range_id = composition.get('range_id', "")
+                value = composition.get('value', "")
+
+                # Проверяем наличие обязательных ID
+                if not nomenclature_id or not range_id:
+                    continue
+
+                # Проверяем наличие объектов в словаре
+                if nomenclature_id not in self.__default_receipt_items:
+                    continue
+                if range_id not in self.__default_receipt_items:
+                    continue
+
+                # nomenclature = self.__default_receipt_items[nomenclature_id] if nomenclature_id in self.__default_receipt_items else None
+                nomenclature = self.__default_receipt_items[nomenclature_id]
+                # range = self.__default_receipt_items[range_id] if range_id in self.__default_receipt_items else None
+                range_item = self.__default_receipt_items[range_id]
+
+                # Валидация значения (value)
+                try:
+                    value_int = int(value) if value else 0
+                    if value_int <= 0:
+                        continue
+                except (ValueError, TypeError):
+                    continue
+
+                item = receipt_item_model.create(nomenclature, range_item, value_int)
+                self.__default_receipt.composition.append(item)
+
+                # Проверяем что объекты не None
+                if nomenclature is None or range_item is None:
+                    continue
+
+            # Проверяем что рецепт не пустой
+            if len(self.__default_receipt.composition) == 0:
+                return False
+
+            # Сохраняем рецепт
+            self.__repo.data[ reposity.receipt_key() ].append(self.__default_receipt)
+
+            return True
+        # Отлов ошибок
+        except (ValueError, TypeError):
+            return False
 
     """
     Стартовый набор данных
