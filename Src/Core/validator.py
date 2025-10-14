@@ -18,7 +18,7 @@ class operation_exception(Exception):
 class validator:
 
     @staticmethod
-    def validate( value, type_, len_= None):
+    def validate( value, type_, len_= None, min_lim= None):
         """
             Валидация аргумента по типу и длине
         Args:
@@ -43,6 +43,11 @@ class validator:
         # Проверка аргумента
         if len(str(value).strip()) == 0:
             raise argument_exception("Пустой аргумент")
+
+        # Проверка
+        if min_lim is not None and value <= min_lim:
+            raise argument_exception(f"Значение аргумента {value} ниже или равно минимальному лимиту {min_lim}")
+
 
         if len_ is not None and len(str(value).strip()) > len_:
             raise argument_exception("Некорректная длина аргумента")

@@ -39,8 +39,9 @@ class reposity:
     @staticmethod
     def receipt_key():
         return "receipt_model"
-    
 
+
+    # TODO: Внимание! Тут можно сделать универсально (сделано)
     """
     Инициализация
     """
